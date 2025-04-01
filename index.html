@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixoFrog</title>
+        <!--                     Boostrap link              -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!--                     Burger navs                 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+        <!--                       Fonts                       -->
+             <!-- Google Font (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+        <!--                   Lottieflies.com                 -->
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    <style>  
+                *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+                }
+                body{
+                    background-color: #191723;
+                }
+        /*#region              Burger nav            */
+               
+           
+                nav{
+                display: flex;
+                height: 80px;
+                width: 100%;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 0 0 10px;
+                flex-wrap: wrap;
+                position :fixed;
+                top: 0;
+                transition: top 0.5s ease;
+                z-index: 999;
+                }
+                nav .logo{
+                color: #fff;
+                display:flex;
+                align-items: center;
+
+                }
+                nav .logo h1{
+                    font-size: 24px;
+                    font-weight: 600;
+                }
+                nav .logo img{
+                    height: 50px;
+                    margin-right: 30px;
+                }
+                nav ul{
+                display: flex;
+                flex-wrap: wrap;
+                list-style: none;
+                }
+                nav ul li{
+                margin: 0 5px;
+                }
+                nav ul li a{
+                color: #f2f2f2;
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: 500;
+                padding: 8px 15px;
+                border-radius: 5px;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+                }
+                nav ul li a.active,
+                nav ul li a:hover{
+                color: #1DDDBD;
+                
+                /* background: #fff; */
+                }
+                nav .menu-btn i{
+                color: #fff;
+                font-size: 22px;
+                cursor: pointer;
+                display: none;
+                }
+                input[type="checkbox"]{
+                display: none;
+                }
+                    @media (max-width: 1000px){
+                    nav{
+                        /*top,right,bottom,left*/
+                        padding: 0 40px 0 10px;
+                    }
+                    #click:checked ~ #navigation{
+                        background-color: #1b1b1b;
+                    }
+                    }
+                    @media (max-width: 920px) {
+                    nav .menu-btn i{
+                        display: block;
+                    }
+                    #click:checked ~ .menu-btn i:before{
+                        content: "\f00d";
+                    }
+                    nav ul{
+                        position: fixed;
+                        top: 80px;
+                        left: -100%;
+                        background: #111;
+                        height: 100vh;
+                        width: 100%;
+                        text-align: center;
+                        display: block;
+                        transition: all 0.3s ease;
+                    }
+                    #click:checked ~ ul{
+                        left: 0;
+                    }
+                    nav ul li{
+                        width: 100%;
+                        margin: 40px 0;
+                    }
+                    nav ul li a{
+                        width: 100%;
+                        margin-left: -100%;
+                        display: block;
+                        font-size: 20px;
+                        transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    }
+                    #click:checked ~ ul li a{
+                        margin-left: 0px;
+                    }
+                    nav ul li a.active,
+                    nav ul li a:hover{
+                        background: none;
+                        color: cyan;
+                    }
+                    }  
+        /*#endregion            Burger                 */
+        
+        section{
+            width:100%;         
+            font-family: 'Poppins', sans-serif;
+        }
+        /*                     Same section property             */
+        .section-A,.section-B{
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            padding-left: 10vw;
+            padding-right: 10vw;
+            height: 100vh;    
+        }
+        /*                    Unique section property            */
+        .section-A{
+            background-color: #0c0c0c;
+            /* background-image: url("img/backgroun.png"); */
+        }
+        .section-B{
+            background-color: #191723;
+            background-image: url("img/backgroun.png");
+        }
+        .section-C{
+            background-color: #0c0c0c;
+            display: flex;
+            justify-content: top;
+            padding-top: 20px;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .section-D {
+            background-color: #191723;
+            background-image: url("img/backgroun.png");
+            color: #fff;
+            width: 100%;
+            min-height: 100vh;  /* Changed to min-height to allow for flexible resizing */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* Padding to add some space around the content */
+        }
+        /*#region         animation section         */
+            section {
+                opacity: 0; /* Initially hidden */
+                transform: translateY(150px); /* Move sections down initially */
+                transition: opacity 1s ease-out, transform 1s ease-out;
+            }
+
+            section.show {
+                opacity: 1; /* Become visible */
+                transform: translateY(0); /* Move back to original position */
+            }
+        /*#endregion      animation section         */
+
+        /*#region         background-dot            */
+          .background-dot{
+                    background-color:#0c0c0c ;
+                    position: absolute;
+                    top:0;
+                    right: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                    margin-bottom: 0;
+
+                    display: flex;
+                    flex-wrap: wrap;
+                    overflow: hidden;
+                    animation: changeColor 5s linear infinite;
+                }
+                @keyframes changeColor{
+                    0%
+                    {
+                        filter: hue-rotate(0deg);
+                    }
+                    100%
+                    {
+                        filter: hue-rotate(360deg);
+                    }
+                }
+                .background-dot span{
+                    position: relative;
+                    width: 100px;
+                    height: 100px;
+                    display: block;
+                    opacity: 0.2;
+                }
+                .background-dot span::before
+                {
+                    content: '';
+                    position:absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: #1DDDBD;
+                    transform: scale(0.1);
+                    box-shadow: 0 0 10px fff,
+                                0 0 20px #1DDDBD,
+                                0 0 40px #1DDDBD,
+                                0 0 60px #1DDDBD,
+                                0 0 80px #1DDDBD,
+                                0 0 100px #1DDDBD;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    transition: 2s;
+                }
+                .background-dot span:hover::before{
+                    transform: scale(1);
+                    opacity: 1;
+                    transition: 0s;
+                }
+        /*#endregion         background-dot             */
+        
+        /*#region              Section-A           */
+             /* Profile info on the left */
+                .profile-info {
+                    flex: 1;
+                    color:white;
+                    padding-right: 50px;
+                    font-size: 18px;
+                    /* background-color: blue; */
+                    z-index: 1;
+                }
+                .profile-info h1{
+                    font-size: 50px;
+                }
+                .profile-info h1 span{
+                    color:#01B5FD;
+                }
+                .profile-picture{
+                    z-index: 1;
+                    /* background-color: red; */
+                }
+
+                /* Responsive design for mobile */
+                @media (max-width: 768px) {
+                    .section-A {
+                        padding-top: 100px;
+                        padding-bottom: 0px;
+                        flex-direction: column-reverse; /* Switch places */
+                        text-align: center;
+
+                    }
+                    .profile-info h1{
+                    font-size: 40px;
+                   }
+
+                    .profile-info {
+                        padding-right: 0;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                
+
+                /*   profile icon    */
+                .container-profile img{
+                height: 300px;
+                max-width:300px;
+                border-radius: 71% 29% 42% 58% / 29% 25% 75% 71% ;
+                background-color: #01B5FD;
+
+                }
+                /*end   profile icon    */
+        /*#endregion           Section-A           */
+
+        /*#region              Section-B           */
+            .section-B .profile-info {
+                flex: 1;
+                color:white;
+                padding-left: 10%;
+                /* background-color: blue; */
+            }
+            .section-B .profile-info h3{
+                font-size: 50px;
+            }
+            .section-B .profile-info h3 span{
+                color:#01B5FD;
+            }
+
+
+            /* Responsive design for mobile */
+            @media (max-width: 768px) {
+                .section-B .profile-info{
+                    padding-left: 0;
+                }
+                .section-B {
+                    flex-direction: column;
+                    text-align: center;
+
+                }
+
+                .profile-info {
+                    padding-right: 0;
+                    margin-bottom: 20px;
+                }
+            }
+        /*#endregion            Section-B           */
+
+        /*#region              Section-C           */
+           
+           .section-C h3 {
+                color: white;
+                margin-bottom: 20px;
+                text-align: center;
+                font-size:50px;
+            }
+            .section-C h3 span{
+                color:#01B5FD;
+            }
+
+            .section-C .container-vv {
+                max-width: 1300px;
+                width:80%;
+                /* height: 460px; */
+                height: 100vh;
+            }
+
+            .section-C .container-vv #projectext { 
+                display: flex;
+                background-color: #191723;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                width:300px;
+            }
+
+            
+            #projectext .project-list {
+                list-style: none;
+                display: flex;
+                gap: 20px; /* Adjust space between items */            
+    
+            }
+
+            #projectext .project-list li {  
+                /* padding-right: 50px; */
+                cursor: pointer;
+                display: inline-block;  
+                margin: 0 15px;
+                position:relative;
+                font-family:'sans-serif';
+                color:#a0a0a0;
+                font-size: 18px;
+                letter-spacing:0.5px;
+                margin-left: 0px;
+            }
+                /*                    Hover effect link         */
+                #projectext .project-list li:after{
+                    content:"";
+                    position:absolute;
+                    background-color:#01B4FB;
+                    height: 3px;
+                    width:0;
+                    left: 0;
+                    bottom: -10px;
+                    transition: 0.3s;
+                }
+                #projectext .project-list li:hover{
+                    color: #fff;
+                }
+                #projectext .project-list li:hover:after{
+                    width: 100%;
+                }
+
+            #container-back{
+                background-color: #191723;
+                padding:20px;
+                padding-bottom: 50px;
+                height:430px;
+            }
+
+
+                
+
+                /* Style for the active link */
+                .active{
+                    color: #fff;
+                }
+                .active:after{
+                    width: 100%;
+                }
+                                            
+
+        
+            .projects-grid {
+
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr; /* 3 columns */
+                grid-template-rows: auto auto;      /* 2 rows */
+                gap: 20px;
+                justify-content: center;
+                max-width: 950px;
+            }
+
+            /* Add overlay for videos */
+            .video-container {
+                position: relative;
+                /* width: 300px; */
+                width: 100%;
+                /* height: 200px; */
+                border-radius: 20px;
+            top: 0;
+                overflow: hidden;
+                transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+            }
+
+
+            .video-container video {
+                width: 100%;
+            }
+
+            .video-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4); /* Change the color and opacity */
+                transition: background-color 0.3s ease;
+            }
+            .displayoff,.video-container.active-video .video-overlay, .video-container:hover .video-overlay,.displayoff,
+            .projects-grid.full-view .video-container:not(.active-video), #projectext.displayoff,.container .displayoff
+            {
+                display: none;
+            }
+
+
+            /* Full-screen video display */
+            .projects-grid.full-view .video-container {
+                grid-column: 1 / -1; /* Span all columns */
+                width: 100%;
+                height: 600px;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 600px){
+                .section-C{
+                    height:170vh;
+                }
+                #container-back{
+                    height:850px;
+                }
+                .projects-grid {
+                    grid-template-columns: 1fr; /* Stack in one column on small screens */
+                }
+                .video-container video {
+                width: 70%;
+                }
+                .video-overlay{
+                    width: 70%;
+                }
+            }
+
+            @media (max-width: 500px) {
+                .projects-grid {
+                    grid-template-columns: 1fr; /* Stack in one column on small screens */
+                }
+                .video-container {
+                    width: 100%;
+                    height: auto;
+                }
+                .video-container video {
+                width: 100%;
+                }
+                .video-overlay{
+                    width: 100%;
+                }
+            }
+            #container-dot{
+                width:75%; 
+                height: 100px;  
+                position:absolute;
+                z-index: 4;      
+                bottom: 0px;
+                display:flex;
+                align-items: end;
+                justify-content: center;
+
+                
+                
+            }
+            #container-dot div{
+                background-color: white;
+                border-radius: 5px;
+                margin:5px;
+                height: 10px;
+                width: 10px;
+                transition: all 0.3s ease;
+            }
+            #container-dot div:hover{
+                height: 15px;
+                width: 15px;
+                border-radius: 7px;
+            }
+        /*#endregion           Section-C           */
+        
+        /*#region              Section-D           */
+           .section-D .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                flex-wrap: wrap; /* Allows wrapping for mobile responsiveness */
+            }
+
+            .section-D .text-section {
+                margin: 10px 20px; 
+            }
+
+            .section-D .text-section .text-container {
+                max-width: 400px;
+            }
+
+            .section-D .text-section h1 {
+                font-size: 50px; /* Slightly smaller for mobile compatibility */
+                color: #01B5FD;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .section-D .text-section p {
+                font-size: 1.1rem;
+                line-height: 1.5;
+            }
+
+            .section-D .image-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-D .mobile-image {
+                max-width: 250px;
+                width: 100%; /* Ensures the image scales properly on smaller screens */
+                height: auto;
+            }
+
+            /* Button styling */
+            .section-D .button-image {
+                max-width: 200px;
+                transition: transform 0.3s ease;
+            }
+
+            /* Hover effect for the button */
+            .section-D .button-image:hover {
+                transform: scale(1.1);
+            }
+
+            /* For mobile responsiveness */
+            @media (max-width: 768px) {
+                .section-D {
+                    flex-direction: column; /* Stack text and image vertically on mobile */
+                    padding: 10px; /* Reduced padding for smaller screens */
+                    min-height: 150vh; /* Ensures it fits on mobile screens */
+                }
+
+                .section-D .container {
+                    flex-direction: column; /* Text and image stack vertically */
+                    text-align: center;
+                    flex-wrap: nowrap;
+                }
+
+                .section-D .text-section {
+                    margin-left: 0;
+                    margin-bottom: 20px;
+                    max-width: 100%;
+                }
+
+                .section-D .text-section h1 {
+                    font-size: 32px; /* Adjusted font size for mobile */
+                }
+
+                .section-D .mobile-image {
+                    max-width: 50%; /* Ensures the image takes the available width */
+                    margin-bottom: 20px;
+                }
+
+                .section-D .button-image {
+                    max-width: 100%; /* Ensure the button scales properly on mobile */
+                }
+            }
+        /*#endregion           Section-D           */
+        footer{
+            background-color: #191723;
+        }
+        footer div {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            background-color: #0c0c0c;
+            border-top-left-radius: 40px;  /* Adjust the value to your preference */
+            border-top-right-radius: 40px; /* Adjust the value to your preference */
+        }
+    </style>
+</head>
+<body>
+    <nav id="navigation">
+        <div class="logo">
+            <img src="img/icon.png">
+           <h1>PIXOFROG</h1>
+        </div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+        <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+           <li><a class="active" href="#home">Home</a></li>
+           <li><a href="#about">About</a></li>
+           <li><a href="#project">Projects</a></li>
+           <li><a href="#swingspider">Swing Spider</a></li>
+        </ul>
+     </nav>
+     <section class="section-A" id="home">
+        <!--       Background-bot     -->
+        <div class = "background-dot">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <!---->
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            
+        </div>  
+        <div class="profile-info">
+            <h1>Hi I'm <span>AHSHIVE</span></h1>
+            <p>A passionate game developer, web developer, and digital artist.
+             I enjoy creating interactive experiences and bringing ideas to life 
+             through code and art.</p>
+             
+            <!-- <a href="cv.pdf" class="cv-button">CV</a> -->
+        </div>
+        <div class="profile-picture">
+            <div class="container-profile">
+                <img src="img/Profilee.png" alt="Profile Image" class="profile-image">
+            </div>
+        </div>
+    </section>
+     <section class="section-B" id="about">
+            <div class="profile-picture">
+                <div class="container-profile">
+                    <!--lottiefiles.com-->
+                    <dotlottie-player src="https://lottie.host/36f79e74-2e85-4259-920b-0dfecaa0b6a7/LOe6M72tln.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+                </div>
+            </div>
+            <div class="profile-info">
+                <h3>About <span>Me</span></h3>
+                <p>I'm a creative individual who loves bringing ideas to life,
+                    whether through coding, assembling science projects, or 
+                    exploring new technologies...</p>
+                    <button class="btn btn-primary" type="button">MORE..</button>
+                <!-- <a href="cv.pdf" class="cv-button">More</a> -->
+            </div>
+     </section>
+
+     <section class="section-C" id="project">
+        <h3>My <span>Projects</span></h3>
+        <div class="container-vv">
+                <div id="projectext">
+                    <ul class="project-list">
+                        <li onclick="showProjects('game')" class="buttonw">Game</li>
+                        <li onclick="showProjects('elect')" class="buttonw">Electronic</li>
+                        <li onclick="showProjects('web')" class="buttonw">Web</li>
+                    </ul>
+                </div> 
+
+                <!--                    ........              -->
+              <div id="container-back">
+                    <div class="projects-grid game " id="projectsGridgame">
+                        <div class="video-container" id="videoContainer1">
+                            <iframe id="video1" src="https://www.youtube.com/embed/7nTBa5mURxM?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                        <div class="video-container" id="videoContainer2">
+                            <iframe id="video2" src="https://www.youtube.com/embed/B3KDWB0IuMc?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                        <div class="video-container" id="videoContainer3">
+                            <iframe id="video3" src="https://www.youtube.com/embed/332SYvsbrP0?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                        <div class="video-container" id="videoContainer4">
+                            <iframe id="video4" src="https://www.youtube.com/embed/YgW0sS14afo?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                    </div>
+                    <!--                    ........              -->
+
+                    <div class="projects-grid electronic displayoff" id="projectsGridelect">
+                        <div class="video-container">
+                            <iframe id="video5" src="https://www.youtube.com/embed/-mi-bV2mCBo?enablejsapi=1"  frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                        <div class="video-container">
+                        <iframe id="video6" src="https://www.youtube.com/embed/cm4zqMWS9AY?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                    </div>
+
+                    <!--                    ........              -->
+
+                    <div class="projects-grid web displayoff" id="projectsGridweb">
+                        <div class="video-container">
+                            <iframe id="video7" src="https://www.youtube.com/embed/efGQk5Q7U8M?enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+                            <div class="video-overlay"></div>
+                        </div>
+                    </div> 
+                    <!--                    ........              -->
+
+              </div> 
+        </div>
+     </section>
+
+     <section class="section-D" id="swingspider">
+            <div class="container">
+                <!-- Text Section -->
+                <div class="text-section">
+                    <div class="text-container">
+                        <h1>Swing Spider</h1>
+                        <p>Swing Spider is my first published game, a simple and easy-to-play experience made in Unity. How to play? Just touch the screen to swing – it's that easy!</p>
+                    </div>
+                </div>
+    
+                <!-- Image Section -->
+                <div class="image-section">
+                    <img src="img/mobile phone.png" alt="Swing Spider on mobile phone" class="mobile-image">
+                    <a href="https://play.google.com/store/apps/details?id=com.PixoFrog.SpidersSwing" target="_blank">
+                        <img src="img/button.png" alt="Get it on Google Play" class="button-image">
+                    </a>
+                </div>
+            </div>
+    </section>
+
+    <footer>
+        <div>
+             <p>&copy; 2025 PixoFrog - All Rights Reserved</p>
+        </div> 
+    </footer>
+                                         <!--          js code           -->
+     <!--Only one YT video to play-->
+     <script src="https://www.youtube.com/iframe_api"></script>
+     <script>
+            const nav = document.getElementById('navigation');
+            // #region            navcheckbox
+               const checkbox = document.getElementById('click');
+               
+               checkbox.addEventListener('change',function(){
+                  if(checkbox.checked){
+                      nav.style.background ="#111";
+                  } else {
+                    nav.style.background ="";
+                  }
+               });
+            // #endregion
+            // #region            strollhidenavbar
+                let lastScrollTop = 0;
+                // Add an event listener for the scroll event
+                window.addEventListener('scroll', function() {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Check if user is scrolling down or up
+                    if (scrollTop > lastScrollTop) {
+                        // Scrolling down, hide the navbar by moving it up
+                        nav.style.top = '-100px';
+                    } else {
+                        // Scrolling up, show the navbar by moving it down
+                        nav.style.top = '0';
+                    }
+
+                    // Update last scroll position
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Avoid negative values
+                });
+            // #endregion      strollhidenavbar
+            // #region         video project
+              // Select all buttonw (now li elements)
+              const navLinks = document.querySelectorAll('.buttonw');
+                    let containerback = document.getElementById('container-back');
+
+                
+        
+                // Loop through each link
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Remove the active class from all links
+                        navLinks.forEach(l => l.classList.remove('active'));
+
+                        // Add the active class to the clicked link
+                        this.classList.add('active');
+                    });
+                });
+
+                // Function to show the correct project grid and hide others
+                function showProjects(category) {
+                    // Hide all project grids initially
+                    document.querySelectorAll('.projects-grid').forEach(grid => {
+                        grid.classList.add('displayoff');
+                        grid.classList.remove('full-view');
+                    });
+
+
+                    // Show the selected category
+                    document.getElementById(`projectsGrid${category}`).classList.remove('displayoff');
+                }
+
+              //Only one video play
+              var players = [];
+
+                function onYouTubeIframeAPIReady() {
+                    const videoIds = ["video1", "video2", "video3", "video4","video5", "video6", "video7"]; // Add your iframe IDs here
+
+                    videoIds.forEach((id, index) => {
+                        players[index] = new YT.Player(id, {
+                            events: {
+                                'onStateChange': onPlayerStateChange
+                            }
+                        });
+                    });
+                }
+
+                function onPlayerStateChange(event) {
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        // Pause all other videos
+                        players.forEach(player => {
+                            if (player !== event.target) {
+                                player.pauseVideo();
+                            }
+                        });
+                    }
+                }           
+                // #endregion      videoproject
+            // #region           animation region
+                document.addEventListener('DOMContentLoaded', function () {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('#navigation ul li a');
+
+                // Function to check if a section is in the viewport
+                const isInViewport = (element) => {
+                    const rect = element.getBoundingClientRect();
+                    return (
+                        rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
+                    );
+                };
+
+                // Function to add 'show' class to sections in view
+                const showSectionsOnScroll = () => {
+                    sections.forEach(section => {
+                        if (isInViewport(section)) {
+                            section.classList.add('show');
+                        }
+                    });
+                };
+
+                // Function to add/remove 'active' class based on the section in view
+                const setActiveLink = () => {
+                    sections.forEach((section, index) => {
+                        if (isInViewport(section)) {
+                            // Remove 'active' class from all links
+                            navLinks.forEach(link => link.classList.remove('active'));
+                            // Add 'active' class to the current section's corresponding link
+                            navLinks[index].classList.add('active');
+                        }
+                    });
+                };
+
+                // Listen for scroll events and update active link and section visibility
+                window.addEventListener('scroll', () => {
+                    showSectionsOnScroll();
+                    setActiveLink();
+                });
+
+                // Run both functions once on page load to set the initial state
+                showSectionsOnScroll();
+                setActiveLink();
+            });
+
+            // #endregion
+     </script>
+
+     <!-- bootstrap js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
